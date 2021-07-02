@@ -1,19 +1,15 @@
 import './App.css';
+import Chart from './components/Chart';
+import LoginForm from './components/LoginForm';
 import useWebSocket from './useWebSocket';
 
 function App() {
-  const data = useWebSocket();
-
-  if (!data) return <h1>Loading...</h1>;
+  const { data, previousValues } = useWebSocket();
 
   return (
     <div>
-      <h1>
-        Time: {new Date(data.dt).toLocaleTimeString()}
-      </h1>
-      <h1>
-        Price: {data.price}
-      </h1>
+      <LoginForm />
+      <Chart data={data} previousValues={previousValues} />
     </div>
   );
 }
