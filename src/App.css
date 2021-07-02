@@ -1,38 +1,108 @@
-.App {
-  text-align: center;
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid rgb(0, 0, 0);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: rgb(0, 0, 0) transparent transparent transparent;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: 90%;
+  max-width: 400px;
+  margin: 2em auto;
+}
+
+.login-input {
+  color: #403866;
+  height: 3em;
+  background: #e6e6e6;
+  border: 0;
+  padding-left: 5%;
+  margin: 1em 0;
+  width: 95%;
+  max-width: 400px;
+  font-weight: 700;
+  font-size: 1.3em;
+}
+
+.login-input:focus {
+  outline: none !important;
+  box-shadow: 0 0 10px #719ece;
+}
+
+.login-title {
+  color: #403866;
+  font-size: 2em;
+  font-weight: 700;
+  margin: 1em;
+}
+
+.reset-password {
+  width: 100%;
+  text-align: right;
+  color: #827ffe;
+  background: white;
+  border: 0;
+  font-size: 1em;
+}
+
+.reset-password:hover {
+  text-decoration: underline;
+  text-decoration-color: #827ffe;
+  cursor: pointer;
+}
+
+.btn {
+  background: #827ffe;
   color: white;
+  padding-left: 0;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.4s;
 }
 
-.App-link {
-  color: #61dafb;
+.btn:hover {
+  background: #403866;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.graph-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
 }
