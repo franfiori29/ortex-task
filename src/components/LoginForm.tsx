@@ -1,7 +1,11 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useState } from "react";
 
-const LoginForm: React.FC = () => {
+interface Props {
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LoginForm: React.FC<Props> = ({ setShow }) => {
   const [credentials, setHadleCredentials] = useState({
     username: "",
     password: ""
@@ -45,8 +49,10 @@ const LoginForm: React.FC = () => {
           required
           type="password"
           className="login-input" />
-        <button className="reset-password">Reset password</button>
-        <input type="submit" className="login-input btn" />
+        <button type="button" className="reset-password" onClick={() => setShow(true)}>
+          Reset password
+        </button>
+        <button type="submit" className="login-input btn">Submit</button>
       </form>
     </div>
   )
