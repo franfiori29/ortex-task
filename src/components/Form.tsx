@@ -2,10 +2,13 @@ import axios from "axios";
 import { useState } from "react";
 
 interface Props {
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
-}
+  setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
+  showModal?: boolean;
+  setLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>;
+  setRefDisplay?: (tag: string) => void;
+};
 
-const LoginForm: React.FC<Props> = ({ setShow }) => {
+const Form: React.FC<Props> = ({ setShowModal, showModal, setLoggedIn, setRefDisplay }) => {
   const [credentials, setHadleCredentials] = useState({
     username: "",
     password: ""
@@ -21,8 +24,15 @@ const LoginForm: React.FC<Props> = ({ setShow }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("login", credentials);
-      alert("Successful login!")
+      if (showModal) {
+        await axios.post("reset", credentials);
+        alert("The password was changed successfully!");
+        setLoggedIn!(true);
+        setRefDisplay!("none");
+      } else {
+        await axios.post("login", credentials);
+        alert("Successful login!")
+      }
     } catch (err: any) {
       if (!err.response) return;
       if (err.response.status === 401) return alert("Wrong credentials");
@@ -32,30 +42,36 @@ const LoginForm: React.FC<Props> = ({ setShow }) => {
 
   return (
     <div className="form-container">
-      <div className="login-title">LOGIN</div>
+      <div className="login-title">{showModal ? "RESET" : "LOGIN"}</div>
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Username"
-          onChange={handleChange}
           name="username"
-          value={credentials.username}
+          onChange={handleChange}
           required
           className="login-input" />
         <input
           placeholder="Password"
-          onChange={handleChange}
           name="password"
-          value={credentials.password}
+          onChange={handleChange}
           required
           type="password"
           className="login-input" />
-        <button type="button" className="reset-password" onClick={() => setShow(true)}>
-          Reset password
-        </button>
+        {showModal && <input
+          placeholder="New password"
+          name="newPassword"
+          onChange={handleChange}
+          required
+          type="password"
+          className="login-input" />}
+        {!showModal &&
+          <button type="button" className="reset-password" onClick={() => setShowModal!(true)}>
+            Reset password
+          </button>}
         <button type="submit" className="login-input btn">Submit</button>
       </form>
     </div>
   )
 }
 
-export default LoginForm;
+export default Form;

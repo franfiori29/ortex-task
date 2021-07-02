@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Chart from './components/Chart';
-import LoginForm from './components/LoginForm';
+import Form from './components/Form';
 import Modal from './components/Modal';
 import useWebSocket from './useWebSocket';
 
@@ -12,9 +12,14 @@ function App() {
 
   return (
     <div>
-      {!loggedIn && <LoginForm setShow={setShowModal} />}
       {showModal &&
-        <Modal show={showModal} setShow={setShowModal} setLoggedIn={setLoggedIn} />}
+        <Modal showModal={showModal} setShowModal={setShowModal} setLoggedIn={setLoggedIn}>
+          <Form />
+        </Modal>}
+
+      {!loggedIn &&
+        <Form showModal={showModal} setShowModal={setShowModal} setLoggedIn={setLoggedIn} />}
+
       <Chart data={data} previousValues={previousValues} />
     </div>
   );
